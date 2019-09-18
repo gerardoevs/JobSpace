@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+
 import { AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -10,24 +12,34 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  email: string = '';
-  password: string = '';
+  email = '';
+  password = '';
 
   constructor(
     public fireAuth: AngularFireAuth,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private loadingController: LoadingController
     ) { }
 
   ngOnInit() {
   }
 
   async login() {
+    this.presentLoading();
     const { email, password } = this;
     try {
       const res = await this.fireAuth.auth.signInWithEmailAndPassword(email, password);
-      console.log(res);
+      if (!res.user.emailVerified) {
+        console.log('Usuario no verificado');
+        this.dismissLoading();
+        return;
+      } else {
+        console.log('Bienvenido!');
+        this.dismissLoading();
+      }
     } catch (error) {
-      if(error.code === 'auth/user-not-found'){
+      this.dismissLoading();
+      if (error.code === 'auth/user-not-found'){
         this.presentAlert('Usuario no registrado');
       }
       console.dir(error);
@@ -41,6 +53,17 @@ export class LoginPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Cargando...',
+    });
+    await loading.present();
+  }
+
+  async dismissLoading() {
+    await this.loadingController.dismiss();
   }
 
 }

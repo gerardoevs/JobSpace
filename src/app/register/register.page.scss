@@ -1,0 +1,42 @@
+.--js-register-input-container{
+    border-radius:50px;
+    background: #F0F0F0;
+    padding: 0 2em;
+    margin-bottom: 10px;
+}
+.--js-register-input{
+    text-align: center;
+    font-weight: 300 !important;
+}
+
+.--js-register-select{
+    text-align: center;
+}
+
+.--js-register-message{
+    margin: 1em 1em;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 200;
+}
+
+.--js-register-enphasys{
+    font-weight: 500;
+}
+
+.--content{
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.--js-register-checkbox-container{
+    text-align: center;
+    margin: 1em 0;
+}
+
+@media screen and (min-width: 601px) {
+    .--content{
+        width: 60vw;
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,62 @@
+<ion-content>
+  <p class="--js-register-message">
+    Registate y encuentra al mejor <span class="--js-register-enphasys">Trabajador</span> para terminar la tarea que le tengas, facil y rapido!
+  </p>
+  <div class="--content">
+      <form #formulario="ngForm" (ngSubmit)="onSubmitNewUser()">
+        <div class="--js-register-input-container">
+          <ion-input type="text" [(ngModel)]="newUserData.nombres" required name="nombres" placeholder="Nombres" class="--js-register-input"></ion-input>
+        </div>
+        <div class="--js-register-input-container">
+          <ion-input type="text" [(ngModel)]="newUserData.apellidos" required name="apellidos" placeholder="Apellidos" class="--js-register-input"></ion-input>
+        </div>
+        <div class="--js-register-input-container">
+          <ion-input type="email" [(ngModel)]="newUserData.email" required name="email" placeholder="Correo Electronico" class="--js-register-input"></ion-input>
+        </div>
+        <div class="--js-register-input-container">
+            <ion-input type="text" [(ngModel)]="newUserData.telefono" required name="telefono" placeholder="Numero Télefonico" class="--js-register-input"></ion-input>
+          </div>
+        <div class="--js-register-input-container">
+            <ion-select placeholder="Departamento" 
+                        name="departamento" 
+                        required
+                        [(ngModel)]="newUserData.departamento"
+                        [interfaceOptions]="customActionSheetOptions" 
+                        interface="action-sheet" 
+                        class="--js-register-select">
+              <ion-select-option value="SS">San Salvador</ion-select-option>
+              <ion-select-option value="SM">San Miguel</ion-select-option>
+            </ion-select>  
+        </div>
+        <div class="--js-register-input-container">
+            <ion-select placeholder="Sexo" 
+            required
+            [interfaceOptions]="customActionSheetOptions" 
+            [(ngModel)]="newUserData.sexo"
+            name="sexo"
+            interface="action-sheet" class="--js-register-select">
+              <ion-select-option value="M">Masculino</ion-select-option>
+              <ion-select-option value="F">Femenino</ion-select-option>
+            </ion-select>  
+        </div>
+        <div class="--js-register-input-container">
+          <ion-input type="password" [(ngModel)]="newUserData.password" required name="password" placeholder="Contraseña" class="--js-register-input"></ion-input>
+        </div>
+        <div class="--js-register-input-container">
+          <ion-input type="password" [(ngModel)]="newUserData.cpassword" required name="cpassword" placeholder="Repetir contraseña" class="--js-register-input"></ion-input>
+        </div>
+        <div class="--js-register-checkbox-container">
+          <ion-item>
+            <ion-checkbox style="margin-right:1em;" [(ngModel)]="newUserData.terminosycondiciones"   name="terminosycondiciones"></ion-checkbox>
+            <ion-label>Acepto los Terminos y Condiciones</ion-label>
+          </ion-item>
+        </div>
+        <ion-button type="submit" [disabled]="formulario.invalid" expand="full" shape="round" color="primary">
+          REGISTRARSE
+        </ion-button>
+        <br>
+      </form>
+  </div>
+  
+
+</ion-content>
