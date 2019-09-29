@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'verify-email', loadChildren: './verify-email/verify-email.module#VerifyEmailPageModule' },
+  { path: 'not-verified', loadChildren: './not-verified/not-verified.module#NotVerifiedPageModule' },
 ];
 
 @NgModule({

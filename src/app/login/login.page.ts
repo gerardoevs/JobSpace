@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+import {NgForm} from '@angular/forms';
 
 import { AlertController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginPage implements OnInit {
   constructor(
     public fireAuth: AngularFireAuth,
     public alertController: AlertController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -32,11 +34,13 @@ export class LoginPage implements OnInit {
       if (!res.user.emailVerified) {
         console.log('Usuario no verificado');
         this.dismissLoading();
+        this.router.navigateByUrl('/not-verified');
         return;
       } else {
-        console.log('Bienvenido!');
         this.dismissLoading();
+        this.router.navigateByUrl('/home');
       }
+      this.clearInputs();
     } catch (error) {
       this.dismissLoading();
       if (error.code === 'auth/user-not-found'){
@@ -64,6 +68,11 @@ export class LoginPage implements OnInit {
 
   async dismissLoading() {
     await this.loadingController.dismiss();
+  }
+
+  clearInputs() {
+    this.email = null;
+    this.password = null;
   }
 
 }
