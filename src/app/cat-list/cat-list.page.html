@@ -1,0 +1,59 @@
+<ion-content>
+  <ion-card *ngFor="let worker of workerList">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="4">
+          <ion-avatar class="list-card-avatar">
+            <img *ngIf="worker.img" src="https://www.biography.com/.image/t_share/MTY2MzU3Nzk2OTM2MjMwNTkx/elon_musk_royal_society.jpg">
+            <img *ngIf="!worker.img" src="../../assets/icon/stock-avatar.jpg">
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="8">
+          <ion-row class="worker-data">
+            <ion-col size="12"><span class="worker-name">{{worker.name}} {{worker.lastname}}</span></ion-col>
+            <ion-col size="12">{{worker.habilities}}</ion-col>
+            <ion-col size="4"><ion-icon name="hammer"></ion-icon> {{worker.workdone}}</ion-col>
+            <ion-col size="4"><ion-icon name="locate"></ion-icon> 2.2km</ion-col>
+            <ion-col size="4"><ion-icon name="cash"></ion-icon> {{worker.payment}}/h</ion-col>
+            <ion-col size="12" class="worker-stars">
+              <ion-icon *ngIf="worker.rating >= 1" name="star"></ion-icon>
+              <ion-icon *ngIf="worker.rating >= 2" name="star"></ion-icon>
+              <ion-icon *ngIf="worker.rating >= 3" name="star"></ion-icon>
+              <ion-icon *ngIf="worker.rating >= 4" name="star"></ion-icon>
+              <ion-icon *ngIf="worker.rating == 5" name="star"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+
+  <div *ngIf="!workerList">
+
+    <ion-card *ngFor="let i of [1,2,3,4,5]">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="4">
+            <ion-avatar class="list-card-avatar">
+              <img src="../../assets/icon/stock-avatar.jpg">
+            </ion-avatar>
+          </ion-col>
+          <ion-col size="8">
+            <ion-row class="worker-data">
+              <ion-col size="12"><ion-skeleton-text animated ></ion-skeleton-text></ion-col>
+              <ion-col size="12"><ion-skeleton-text animated ></ion-skeleton-text></ion-col>
+              <ion-col size="4"><ion-icon name="hammer"></ion-icon><ion-skeleton-text animated ></ion-skeleton-text></ion-col>
+              <ion-col size="4"><ion-icon name="locate"></ion-icon><ion-skeleton-text animated ></ion-skeleton-text></ion-col>
+              <ion-col size="4"><ion-icon name="cash"></ion-icon><ion-skeleton-text animated ></ion-skeleton-text></ion-col>
+              <ion-col size="12" class="worker-stars">
+                  <ion-skeleton-text animated ></ion-skeleton-text>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+
+  </div>
+</ion-content>

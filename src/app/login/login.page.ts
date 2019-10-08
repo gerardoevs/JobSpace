@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
         return;
       } else {
         this.dismissLoading();
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/tabs');
       }
       this.clearInputs();
     } catch (error) {
