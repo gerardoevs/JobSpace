@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'account', loadChildren: './account/account.module#AccountPageModule' },
   { path: 'categories', loadChildren: './categories/categories.module#CategoriesPageModule' },
   { path: 'near-me', loadChildren: './near-me/near-me.module#NearMePageModule' },
-  { path: 'cat-list', loadChildren: './cat-list/cat-list.module#CatListPageModule' },
+  { path: 'cat-list', loadChildren: './cat-list/cat-list.module#CatListPageModule' }
 ];
 
 @NgModule({

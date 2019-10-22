@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ModalController } from '@ionic/angular';
+import { WorkerprofilePage } from '../modal-pages/workerprofile/workerprofile.page';
+
 import { Observable } from 'rxjs';
-import { resolve } from 'path';
 
 @Component({
   selector: 'app-cat-list',
@@ -12,18 +14,30 @@ export class CatListPage implements OnInit {
 
   workerList;
 
-  constructor(private db: AngularFirestore) {
+  constructor(
+      private db: AngularFirestore,
+      public modalController: ModalController
+    ) {
     this.db.collection('workerdata').snapshotChanges().subscribe( data => {
       this.workerList = data.map(e => {
         return e.payload.doc.data();
       });
       console.log(this.workerList);
     });
-    
+
   }
 
   ngOnInit() {
-    
+  }
+
+  async presentModal(workerData) {
+    const modal = await this.modalController.create({
+      component: WorkerprofilePage,
+      componentProps : {
+        data: workerData
+      }
+    });
+    return await modal.present();
   }
 
 }

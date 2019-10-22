@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-card *ngFor="let worker of workerList">
+  <ion-card *ngFor="let worker of workerList" (click)="presentModal(worker)">
     <ion-grid fixed>
       <ion-row>
         <ion-col size="4">

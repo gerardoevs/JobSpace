@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-categories',
@@ -7,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesPage implements OnInit {
 
-  nombreUsuario = 'Alvaro Hernandez';
+  nombreUsuario;
 
-  constructor() { }
+  constructor(public fireAuth: AngularFireAuth) {
+
+  }
 
   ngOnInit() {
+    console.log(this.fireAuth.auth.currentUser.uid);
   }
 
 }

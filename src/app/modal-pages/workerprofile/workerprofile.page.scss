@@ -1,0 +1,43 @@
+.worker-profile-avatar{
+    padding: 0 5em;
+    padding-top: 2em;
+    width: 100%;
+    height: auto;
+}
+
+.worker-profile-bio{
+    width: 100%;
+}
+
+.worker-profile-tittle{
+    text-align: center;
+}
+
+.worker-payment{
+    text-align: center;
+    font-size: 35px;
+}
+
+//----------------
+
+.list-card-avatar{
+    margin: auto;
+    width:100% !important;  
+    height : 100% !important;  
+    max-width: 70px !important;  //any size
+    max-height: 70px !important; //any size 
+}
+
+
+.worker-name{
+    display: block;
+    color: black;
+    width: 100%;
+    font-weight: 500;   
+}
+
+.worker-stars{
+    text-align: center;
+    font-size: 1.5em;
+    color:#A04A4A;
+}

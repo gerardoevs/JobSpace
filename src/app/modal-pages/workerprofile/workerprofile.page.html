@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12">
+          <ion-avatar class="worker-profile-avatar">
+            <img src="../../assets/icon/stock-avatar.jpg">
+          </ion-avatar>
+        </ion-col>
+        <ion-col size="12">
+          <ion-row class="worker-data">
+              <ion-card class="worker-profile-bio">
+                <ion-card-header>
+                  <ion-card-title class="worker-profile-tittle">
+                    {{data.name}} {{data.lastname}}
+                    <br>
+                    <ion-icon *ngIf="data.rating >= 1" name="star"></ion-icon>
+                    <ion-icon *ngIf="data.rating >= 2" name="star"></ion-icon>
+                    <ion-icon *ngIf="data.rating >= 3" name="star"></ion-icon>
+                    <ion-icon *ngIf="data.rating >= 4" name="star"></ion-icon>
+                    <ion-icon *ngIf="data.rating == 5" name="star"></ion-icon>
+                  </ion-card-title>
+                </ion-card-header>
+              
+                <ion-card-content>
+                    {{data.bio}}
+                </ion-card-content>
+              </ion-card>
+              <ion-card class="worker-profile-bio">
+                  <ion-card-header>
+                    <ion-card-title class="worker-profile-tittle">
+                      Habilidades
+                    </ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                      <ion-chip color="primary" *ngFor="let habilities of data.habilities">
+                        <ion-label color="primary">{{habilities}}</ion-label>
+                      </ion-chip>
+                  </ion-card-content>
+              </ion-card>
+              <ion-col size="6">
+                  <ion-card color="primary">
+                      <ion-card-content>
+                          <ion-card-header>
+                            <ion-card-title class="worker-profile-tittle">
+                              Cobro
+                            </ion-card-title>
+                          </ion-card-header>
+                          <div class="worker-payment">
+                              ${{data.payment}}/h
+                          </div>
+                      </ion-card-content>
+                  </ion-card>
+              </ion-col>
+              <ion-col size="6">
+                  <ion-card >
+                      <ion-card-header>
+                        <ion-card-title class="worker-profile-tittle">
+                          Completados
+                        </ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                          <div class="worker-payment">
+                              {{data.workdone}}
+                          </div>
+                          
+                      </ion-card-content>
+                  </ion-card>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+                <ion-card >
+                    <ion-card-header>
+                      <ion-card-title class="worker-profile-tittle">
+                        Feedback
+                      </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-grid fixed>
+                          <ion-row *ngFor="let i of [1,2,3,4]">
+                            <ion-col size="3">
+                              <ion-avatar class="list-card-avatar">
+                                <img  src="../../assets/icon/stock-avatar.jpg">
+                              </ion-avatar>
+                            </ion-col>
+                            <ion-col size="9">
+                              <ion-row class="worker-data" >
+                                <ion-col size="12"><span class="worker-name">Mario Pineda</span></ion-col>
+                                <ion-col size="12">Me parece excelentea el trabajo realizado por usted.</ion-col>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                              </ion-row>
+                            </ion-col>
+                          </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+</ion-content>

@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { CatListPage } from './cat-list.page';
 
+import { WorkerprofilePageModule } from '../modal-pages/workerprofile/workerprofile.module';
+import { WorkerprofilePage } from '../modal-pages/workerprofile/workerprofile.page';
+
 const routes: Routes = [
   {
     path: '',
@@ -15,11 +18,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+    WorkerprofilePage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    WorkerprofilePageModule
   ],
   declarations: [CatListPage]
 })
