@@ -1,10 +1,7 @@
-<ion-content id="EmployerForm">
+<ion-content>
   <p class="--js-register-message">
     Registate y encuentra al mejor <span class="--js-register-enphasys">Trabajador</span> para terminar la tarea que le tengas, facil y rapido!
   </p>
-  <div class="--center-button"><ion-button id="buttonRegMode" (click)='switchRegMode()' class="--js-button-regmode" shape="round">
-    Soy un Trabajador
-  </ion-button> </div> <br>
 
   <div class="--content">
       <form #formulario="ngForm" (ngSubmit)="onSubmitNewUser()">
@@ -64,132 +61,6 @@
         <div class="--js-register-checkbox-container">
           <ion-item>
             <ion-checkbox style="margin-right:1em;" [(ngModel)]="newUserData.terminosycondiciones"   name="terminosycondiciones"></ion-checkbox>
-            <ion-label>Acepto los Terminos y Condiciones</ion-label>
-          </ion-item>
-        </div>
-        <ion-button type="submit" [disabled]="formulario.invalid" expand="full" shape="round" color="primary">
-          REGISTRARSE
-        </ion-button>
-        <br>
-      </form>
-  </div>
-  
-
-</ion-content>
-
-<!--///////////////////////////////////////// This is the Employee Form ///////////////////////////////////////////////////////-->
-
-<ion-content id="EmployeeForm" hidden>
-  <p class="--js-register-message">
-    Registate y encuentra personas que desean <span class="--js-register-enphasys">Contratarte</span> por tus servicios como trabajador!
-  </p>
-  <div class="--center-button"><ion-button id="buttonRegMode" (click)='switchRegMode()' class="--js-button-regmode" shape="round">
-    Busco un Trabajador
-  </ion-button> </div> <br>
-
-  <div class="--content">
-      <form #formulario="ngForm" (ngSubmit)="onSubmitNewWorker()">
-        <div class="--js-register-input-container">
-          <ion-input type="text" [(ngModel)]="newWorkerData.nombres" required name="workerNombres" placeholder="Nombres" class="--js-register-input"></ion-input>
-        </div>
-        <div class="--js-register-input-container">
-          <ion-input type="text" [(ngModel)]="newWorkerData.apellidos" required name="workerApellidos" placeholder="Apellidos" class="--js-register-input"></ion-input>
-        </div>
-        <div class="--js-register-input-container">
-          <ion-input type="email" [(ngModel)]="newWorkerData.email" required name="workerEmail" placeholder="Correo Electronico" class="--js-register-input"></ion-input>
-        </div>
-        <div class="--js-register-input-container">
-            <ion-input type="text" [(ngModel)]="newWorkerData.telefono" required name="workerTelefono" placeholder="Numero Télefonico" class="--js-register-input"></ion-input>
-          </div>
-
-        
-          <div class="--js-register-input-container">
-            <ion-textarea [(ngModel)]="newWorkerData.bio" required name="workerBiografia" placeholder="Descríbete laboralmente de forma breve" class="--js-register-input"></ion-textarea>
-          </div>
-
-        <!--DefineHabilities-->
-        <label for="workerHability" class="--center-button">Habilidades o Dominios Laborales</label>
-        <ion-item>
-        <div class="--js-register-input-container">
-          <ion-input id="newHability" type="text" name="workerHability" placeholder="Habilidad / Dominio laboral" class="--js-register-input"></ion-input>
-        </div>
-        <ion-button class="--addBtn ml-2" (click)="addHability()">+</ion-button>
-        </ion-item>
-
-        <ion-chip color="primary" *ngFor="let habilities of newWorkerData.habilities">
-          <ion-label color="primary">{{habilities}}</ion-label>
-        </ion-chip>
-        <hr>
-
-        <label for="workerPay">Costo por Hora ($/H)</label>
-        <div class="--js-register-input-container">
-            <span class="--cash-symbol">$</span><ion-input type="number" [(ngModel)]="newWorkerData.pay" step="0.01" required name="workerPay" class="--js-register-input"></ion-input>
-          </div>
-
-        <div class="--js-register-input-container">
-            <ion-select placeholder="Categoria" 
-                        name="catgery"
-                        required
-                        [(ngModel)]="newWorkerData.category"
-                        [interfaceOptions]="customActionSheetOptions" 
-                        interface="action-sheet" 
-                        class="--js-register-select">
-              <ion-select-option value="INFO">Informática - Programación</ion-select-option>
-              <ion-select-option value="FONT">Fontanería</ion-select-option>
-              <ion-select-option value="DOME">Doméstico</ion-select-option>
-              <ion-select-option value="ELEC">Electricista</ion-select-option>
-              <ion-select-option value="CHOF">Chofer</ion-select-option>
-              <ion-select-option value="CONT">Contaduría</ion-select-option>
-              <ion-select-option value="JURI">Jurídica</ion-select-option>
-              <ion-select-option value="EMPR">Empresarial</ion-select-option>
-            </ion-select>  
-        </div>
-
-
-        <div class="--js-register-input-container">
-            <ion-select placeholder="Departamento" 
-                        name="departamento"
-                        required
-                        [(ngModel)]="newWorkerData.departamento"
-                        [interfaceOptions]="customActionSheetOptions" 
-                        interface="action-sheet" 
-                        class="--js-register-select">
-              <ion-select-option value="AH">Ahuachapán</ion-select-option>
-              <ion-select-option value="SO">Sonsonate</ion-select-option>
-              <ion-select-option value="SA">Santa Ana</ion-select-option>
-              <ion-select-option value="LL">La Libertad</ion-select-option>
-              <ion-select-option value="CH">Chalatenango</ion-select-option>
-              <ion-select-option value="SS">San Salvador</ion-select-option>
-              <ion-select-option value="CU">Cuscatlán</ion-select-option>
-              <ion-select-option value="CA">Cabañas</ion-select-option>
-              <ion-select-option value="SV">San Vicente</ion-select-option>
-              <ion-select-option value="LP">La Paz</ion-select-option>
-              <ion-select-option value="US">Usulután</ion-select-option>
-              <ion-select-option value="SM">San Miguel</ion-select-option>
-              <ion-select-option value="MO">Morazán</ion-select-option>
-              <ion-select-option value="LU">La Unión</ion-select-option>
-            </ion-select>  
-        </div>
-        <div class="--js-register-input-container">
-            <ion-select placeholder="Sexo" 
-            required
-            [interfaceOptions]="customActionSheetOptions" 
-            [(ngModel)]="newWorkerData.sexo"
-            name="sexo"
-            interface="action-sheet" class="--js-register-select">
-              <ion-select-option value="M">Masculino</ion-select-option>
-              <ion-select-option value="F">Femenino</ion-select-option>
-            </ion-select>  
-        </div>
-        <div class="--js-register-input-container">
-          <ion-input type="password" [(ngModel)]="newWorkerData.password" required name="workerPassword" placeholder="Contraseña" class="--js-register-input"></ion-input>
-        </div>
-        <div class="--js-register-input-container">
-          <ion-input type="password" [(ngModel)]="newWorkerData.cpassword" required name="workerCpassword" placeholder="Repetir contraseña" class="--js-register-input"></ion-input>
-        </div>
-        <div class="--js-register-checkbox-container">
-          <ion-item>
-            <ion-checkbox style="margin-right:1em;" [(ngModel)]="newWorkerData.terminosycondiciones"   name="workerTerminosycondiciones"></ion-checkbox>
             <ion-label>Acepto los Terminos y Condiciones</ion-label>
           </ion-item>
         </div>

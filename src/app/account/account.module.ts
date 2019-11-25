@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { AccountPage } from './account.page';
 
+import { RegWorkerPageModule } from '../modal-pages/reg-worker/reg-worker.module';
+import { RegWorkerPage } from '../modal-pages/reg-worker/reg-worker.page';
+
 const routes: Routes = [
   {
     path: '',
@@ -15,11 +18,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+    RegWorkerPage
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    RegWorkerPageModule
   ],
   declarations: [AccountPage]
 })
