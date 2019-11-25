@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>account</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div class="--center-button">
     <ion-button type="button" expand="full" shape="round" color="primary" 
@@ -11,4 +5,22 @@
       Postularse como Trabajador
     </ion-button>
   </div>
+  
+    <ion-avatar class="profile-picture">
+        <img  src="../../assets/icon/stock-avatar.jpg">
+    </ion-avatar>
+  
+  <ion-card class="profile-data">
+    <ion-card-content style="padding-left:0; padding-right:0;">
+        <ion-button expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light"><ion-icon slot="start" name="image"></ion-icon> Editar Imagen</ion-button>
+        <ion-button expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light"><ion-icon slot="start" name="create"></ion-icon> Editar Datos Personales</ion-button>
+        <ion-button expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light"><ion-icon slot="start" name="create"></ion-icon> Cambiar Contraseña</ion-button>
+        <ion-button expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light">Terminos y condiciones</ion-button>
+        <ion-button expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light">Politicas de Privacidad</ion-button>
+        <ion-button expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light"><ion-icon slot="start" name="help-circle"></ion-icon> Ayuda</ion-button>
+        <ion-button (click)="logout()" expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd; margin-top: 8em;" color="medium"><ion-icon slot="start" name="log-out"></ion-icon> Cerrar Sesion</ion-button>
+        <span style="display:block; text-align: center; width: 100%; margin-top: 1em;">ver 0.1.0</span>
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>

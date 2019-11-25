@@ -5,8 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { WorkerprofilePage } from '../modal-pages/workerprofile/workerprofile.page';
 
 import { Observable } from 'rxjs';
-import { worker } from 'cluster';
-
 @Component({
   selector: 'app-cat-list',
   templateUrl: './cat-list.page.html',

@@ -13,7 +13,8 @@
             <ion-row class="worker-data">
               <ion-col size="12"><span class="worker-name">{{worker.name}} {{worker.lastname}}</span></ion-col>
               <ion-col size="12">{{worker.habilities}}</ion-col>
-              <ion-col size="4"><ion-icon name="hammer"></ion-icon> {{worker.workdone}}</ion-col>
+              <ion-col size="4" *ngIf="!worker.workdone" ><ion-icon name="hammer"></ion-icon> 0</ion-col>
+              <ion-col size="4" *ngIf="worker.workdone" ><ion-icon name="hammer"></ion-icon> {{ worker.workdone }}</ion-col>
               <ion-col size="4"><ion-icon name="locate"></ion-icon> 2.2km</ion-col>
               <ion-col size="4"><ion-icon name="cash"></ion-icon> {{worker.payment}}/h</ion-col>
               <ion-col size="12" class="worker-stars">
