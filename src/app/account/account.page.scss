@@ -1,0 +1,16 @@
+.profile-picture{
+    position: absolute;
+    width: 169px;
+    height: 169px;
+    left: 30vw;
+    top: 47px;
+    z-index: 2;
+}
+
+.profile-data{
+    z-index: 1;
+    background-color: #F0F0F0;
+    border-radius: 15px;
+    top: 20vh;
+    padding-top:3em;
+}
