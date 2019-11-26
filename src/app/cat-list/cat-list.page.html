@@ -1,21 +1,31 @@
 <ion-content>
   <div *ngFor="let worker of workerList">
-    <ion-card *ngIf="comprobeCat(worker.category)" (click)="presentModal(worker)">
+    <ion-card *ngIf="comprobeCat(worker.category) && userUID!=worker.UID" (click)="presentModal(worker)">
       <ion-grid fixed>
         <ion-row>
           <ion-col size="4">
             <ion-avatar class="list-card-avatar">
-              <img *ngIf="worker.img" src="https://www.biography.com/.image/t_share/MTY2MzU3Nzk2OTM2MjMwNTkx/elon_musk_royal_society.jpg">
+              <img *ngIf="worker.img" src="{{worker.img}}">
               <img *ngIf="!worker.img" src="../../assets/icon/stock-avatar.jpg">
             </ion-avatar>
           </ion-col>
           <ion-col size="8">
             <ion-row class="worker-data">
               <ion-col size="12"><span class="worker-name">{{worker.name}} {{worker.lastname}}</span></ion-col>
-              <ion-col size="12">{{worker.habilities}}</ion-col>
+              <ion-col size="12">
+              <span *ngFor="let habilities of worker.habilities;let i=index">
+                  <ion-chip color="primary"  *ngIf="i < 3">
+                    <ion-label >{{habilities}}</ion-label>
+                  </ion-chip>
+                  <ion-chip color="primary"  *ngIf="i == 4">
+                      <ion-label >Otras</ion-label>
+                    </ion-chip>
+              </span>
+                
+              </ion-col>
               <ion-col size="4" *ngIf="!worker.workdone" ><ion-icon name="hammer"></ion-icon> 0</ion-col>
               <ion-col size="4" *ngIf="worker.workdone" ><ion-icon name="hammer"></ion-icon> {{ worker.workdone }}</ion-col>
-              <ion-col size="4"><ion-icon name="locate"></ion-icon> 2.2km</ion-col>
+              <ion-col size="4"><ion-icon name="locate"></ion-icon>{{worker.distance_text}}</ion-col>
               <ion-col size="4"><ion-icon name="cash"></ion-icon> {{worker.payment}}/h</ion-col>
               <ion-col size="12" class="worker-stars">
                 <ion-icon *ngIf="worker.rating >= 1" name="star"></ion-icon>

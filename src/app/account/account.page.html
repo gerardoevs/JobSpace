@@ -1,17 +1,12 @@
-<ion-content>
-  <div class="--center-button">
-    <ion-button type="button" expand="full" shape="round" color="primary" 
-      (click)="presentRegWorkerModal()">
-      Postularse como Trabajador
-    </ion-button>
-  </div>
-  
+<ion-content> 
     <ion-avatar class="profile-picture">
-        <img  src="../../assets/icon/stock-avatar.jpg">
+        <img *ngIf="userData.img" src="{{userData.img}}">
+        <img *ngIf="!userData.img" src="../../assets/icon/stock-avatar.jpg">
     </ion-avatar>
   
   <ion-card class="profile-data">
     <ion-card-content style="padding-left:0; padding-right:0;">
+      <ion-button (click)="presentWorkerModalReg()" expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light"><ion-icon slot="start" name="add"></ion-icon> Postularse como trabajador</ion-button>
         <ion-button expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light"><ion-icon slot="start" name="image"></ion-icon> Editar Imagen</ion-button>
         <ion-button expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light"><ion-icon slot="start" name="create"></ion-icon> Editar Datos Personales</ion-button>
         <ion-button expand="full" fill="solid" style="--box-shadow:#fff; border-bottom:2px solid #ddd;" color="light"><ion-icon slot="start" name="create"></ion-icon> Cambiar Contraseña</ion-button>

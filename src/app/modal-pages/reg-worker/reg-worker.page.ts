@@ -7,7 +7,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ModalController } from '@ionic/angular';
-import {Worker} from '../../interfaces/interfaces';
+import {Worker, User} from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-reg-worker',
@@ -17,6 +17,19 @@ import {Worker} from '../../interfaces/interfaces';
 export class RegWorkerPage implements OnInit {
   @Input() data: Worker;
 
+  userData: User = {
+    UID: '',
+    names: '',
+    lastnames: '',
+    email: '',
+    city: '',
+    sex: '',
+    regDate: '',
+    telephone: '',
+    type: '',
+    img: ''
+  };
+
   // For Employee Data
   newWorkerData = {
     nombres: '',
@@ -25,8 +38,8 @@ export class RegWorkerPage implements OnInit {
     telefono: '',
     bio: '',
     habilities: [],
-    geoPos: [],
-    pay: 0.00,
+    location: null,
+    pay: null,
     departamento: '',
     sexo: '',
     workdone: 0,
@@ -35,6 +48,8 @@ export class RegWorkerPage implements OnInit {
     cpassword: '',
     terminosycondiciones: false
   };
+
+  workerHability;
 
 
   constructor(
@@ -59,6 +74,7 @@ export class RegWorkerPage implements OnInit {
   ngOnInit() {
   }
 
+
    // For Worker Form
 
    async presentLoading() {
@@ -82,17 +98,15 @@ export class RegWorkerPage implements OnInit {
 
 
    addHability() {
-    const hability: string = document.getElementById('newHability').value;
-    if ( hability != '' ) {
-      this.newWorkerData.habilities.push(hability);
-      document.getElementById('newHability').value = '';
+    if ( this.workerHability !== '' ) {
+      this.newWorkerData.habilities.push(this.workerHability);
+      this.workerHability = '';
     }
+   }
 
-  }
 
 
     onSubmitNewWorker() {
-      let geoPos = null;
       if (this.newWorkerData.password !== this.newWorkerData.cpassword) {
         this.presentAlert(`Las contraseñas no coinciden.`);
         return;
@@ -103,45 +117,59 @@ export class RegWorkerPage implements OnInit {
       }
 
       this.geolocation.getCurrentPosition().then((resp) => {
-        geoPos = { _lat: resp.coords.latitude, _long: resp.coords.longitude };
-        this.newWorkerData.geoPos = geoPos;
+        const location = { _lat: resp.coords.latitude, _long: resp.coords.longitude };
+        this.newWorkerData.location = location;
       }).catch((error) => {
+        console.log(error);
         this.presentAlert(`No se pudo obtener la ubicacion de tu dispositivo. Revisa que tengas la Ubicacion GPS Activa.`);
         return;
       });
 
-
-
       this.presentLoading();
-      this.afAuth.auth.createUserWithEmailAndPassword(this.newWorkerData.email, this.newWorkerData.password).then(cred => {
-        cred.user.sendEmailVerification();
-        return this.db.collection('workerdata').doc(cred.user.uid).set({
-          UID: cred.user.uid,
-          name: this.newWorkerData.nombres,
-          lastname: this.newWorkerData.apellidos,
-          email: this.newWorkerData.email,
-          telefono: this.newWorkerData.telefono,
-          departamento: this.newWorkerData.departamento,
-          sexo: this.newWorkerData.sexo,
-          fecharegistro: new Date(),
+      const uid = this.afAuth.auth.currentUser.uid;
+      console.log(uid);
+      this.db.collection('users').ref.where('UID', '==', uid).get().then( snapshot => {
+        snapshot.forEach(doc => {
+          this.userData.UID = doc.data().UID;
+          this.userData.names = doc.data().names;
+          this.userData.lastnames = doc.data().lastnames;
+          this.userData.email = doc.data().email;
+          this.userData.city = doc.data().city;
+          this.userData.telephone = doc.data().telephone;
+          this.userData.regDate = doc.data().regDate;
+          this.userData.type = doc.data().type;
+          this.userData.sex = doc.data().sex;
+        });
+      }).then(() => {
+
+        console.log(this.userData);
+        this.db.collection('workerdata').doc(this.userData.UID).set({
+          UID: this.userData.UID,
+          name: this.userData.names,
+          lastname: this.userData.lastnames,
+          email: this.userData.email,
+          telephone: this.userData.telephone,
+          city: this.userData.city,
+          sex: this.userData.sex,
+          workerRegDate: new Date(),
           tipo: 'common',
-          workdone: this.newWorkerData.workdone,
+          workdone: 0,
           bio: this.newWorkerData.bio,
           habilities: this.newWorkerData.habilities,
-          geoPos: this.newWorkerData.geoPos,
+          location: this.newWorkerData.location,
           category: this.newWorkerData.category,
           payment: this.newWorkerData.pay,
           userType: 'Employee'
-        });
-      }).then(() => {
-        this.dismissLoading();
-        this.router.navigateByUrl('/verify-email');
-      }).catch((err) => {
-        if (err.code === 'auth/email-already-in-use') {
+        }).then(() => {
           this.dismissLoading();
-          this.presentAlert(`El correo ${this.newWorkerData.email} ya esta siendo utilizado.`);
-        }
+          this.router.navigateByUrl('/worker-register-done');
+        }).catch((err) => {
+          console.log(err);
+          this.dismissLoading();
+          this.presentAlert(`Error ${err.code} message: ${err.message}`);
+        }); // REG WORKER ON FIREBASE
       });
+
 
   } // onSubmitNewWorker()
 

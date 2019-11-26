@@ -5,6 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { WorkerprofilePage } from '../modal-pages/workerprofile/workerprofile.page';
 
 import { Observable } from 'rxjs';
+import { Worker, Distance } from '../interfaces/interfaces';
+import { DistanceService } from '../services/distance-service.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 @Component({
   selector: 'app-cat-list',
   templateUrl: './cat-list.page.html',
@@ -13,12 +17,16 @@ import { Observable } from 'rxjs';
 export class CatListPage implements OnInit {
   category: string = null;
   workerList;
+  location;
+  userUID;
 
   constructor(
       private db: AngularFirestore,
       public modalController: ModalController,
       private activeRoute: ActivatedRoute,
-      private router: Router
+      private router: Router,
+      private distanceServ: DistanceService,
+      private afAuth: AngularFireAuth
     ) {
 
       this.activeRoute.queryParams.subscribe(params => {
@@ -28,13 +36,40 @@ export class CatListPage implements OnInit {
         }
       });
 
+      // this.db.collection('workerdata').snapshotChanges().subscribe( data => {
+      // this.workerList = data.map(e => {
+      //   return e.payload.doc.data();
+      // });
+
+
+      console.log(afAuth.auth.currentUser);
+      this.userUID = afAuth.auth.currentUser.uid;
+
       this.db.collection('workerdata').snapshotChanges().subscribe( data => {
-      this.workerList = data.map(e => {
-        return e.payload.doc.data();
+        this.workerList = data.map( e => {
+          return e.payload.doc.data();
+        });
+        if (this.workerList != null){
+          this.workerList = this.workerList.map((item: Worker) => {
+            this.distanceServ.getDistance(item.location._lat + ',' + item.location._long)
+            .subscribe((distance: Distance) => {
+              const dist = distance.rows.map(row => {
+                return row.elements.map(element => {
+                  return element.distance;
+                })
+              });
+              item.distance_text = dist[0][0].text;
+              item.distance_away = dist[0][0].value;
+              console.log(distance);
+            });
+            return item;
+          });
+          console.log(this.workerList);
+          console.log(this.workerList.sort((a, b) => a.distance_away - b.distance_away));
+        }
       });
 
       console.log(this.workerList);
-    });
 
   }
 
@@ -52,7 +87,7 @@ export class CatListPage implements OnInit {
   }
 
   comprobeCat(workerCat: string) {
-    if ( workerCat == this.category) {
+    if ( workerCat === this.category) {
       return true;
     } else {
       return false;

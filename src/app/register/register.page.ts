@@ -14,16 +14,18 @@ import { Router } from '@angular/router';
 export class RegisterPage implements OnInit {
 
   newUserData = {
-    nombres: '',
-    apellidos: '',
+    names: '',
+    lastnames: '',
     email: '',
-    telefono: '',
-    departamento: '',
-    sexo: '',
+    telephone: '',
+    city: '',
+    sex: '',
     password: '',
     cpassword: '',
-    terminosycondiciones: false
+    terms: false
   };
+
+  private error;
 
 
   constructor(
@@ -43,34 +45,42 @@ export class RegisterPage implements OnInit {
       this.presentAlert(`Las contraseñas no coinciden.`);
       return;
     }
-    if (!this.newUserData.terminosycondiciones) {
+    if (!this.newUserData.terms) {
       this.presentAlert(`Para registrarte debes aceptar los terminos y condiciones.`);
       return;
     }
-    this.presentLoading();
-    this.afAuth.auth.createUserWithEmailAndPassword(this.newUserData.email, this.newUserData.password).then(cred => {
-      cred.user.sendEmailVerification();
-      return this.db.collection('users').doc(cred.user.uid).set({
-        UID: cred.user.uid,
-        nombres: this.newUserData.nombres,
-        apellidos: this.newUserData.apellidos,
-        email: this.newUserData.email,
-        telefono: this.newUserData.telefono,
-        departamento: this.newUserData.departamento,
-        sexo: this.newUserData.sexo,
-        fecharegistro: new Date(),
-        tipo: 'common',
-        userType: 'Employer'
-      });
-    }).then(() => {
-      this.dismissLoading();
-      this.router.navigateByUrl('/verify-email');
-    }).catch((err) => {
-      if (err.code === 'auth/email-already-in-use') {
+    this.presentLoading().then(() => {
+      this.afAuth.auth.createUserWithEmailAndPassword(this.newUserData.email, this.newUserData.password).then(cred => {
+        cred.user.sendEmailVerification();
+        return this.db.collection('users').doc(cred.user.uid).set({
+          UID: cred.user.uid,
+          names: this.newUserData.names,
+          lastnames: this.newUserData.lastnames,
+          email: this.newUserData.email,
+          telephone: this.newUserData.telephone,
+          city: this.newUserData.city,
+          sex: this.newUserData.sex,
+          regDate: new Date(),
+          type: 'common'
+        });
+      }).then(() => {
         this.dismissLoading();
-        this.presentAlert(`El correo ${this.newUserData.email} ya esta siendo utilizado.`);
-      }
+        this.router.navigateByUrl('/verify-email');
+      }).catch((err) => {
+        this.dismissLoading();
+        console.log(err);
+        if (err.code === 'auth/invalid-email') {
+          this.presentAlert(`El correo es invalido.`);
+        }
+        if (err.code === 'auth/email-already-in-use') {
+          this.presentAlert(`El correo ${this.newUserData.email} ya esta siendo utilizado.`);
+        }
+        if (err.code === 'auth/weak-password') {
+          this.presentAlert(`La contraseña es muy debil, intenta con otra.`);
+        }
+      });
     });
+
 
   }
 

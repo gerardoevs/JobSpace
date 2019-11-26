@@ -6,22 +6,22 @@
   <div class="--content">
       <form #formulario="ngForm" (ngSubmit)="onSubmitNewUser()">
         <div class="--js-register-input-container">
-          <ion-input type="text" [(ngModel)]="newUserData.nombres" required name="nombres" placeholder="Nombres" class="--js-register-input"></ion-input>
+          <ion-input type="text" [(ngModel)]="newUserData.names" required name="names" placeholder="Nombres" class="--js-register-input"></ion-input>
         </div>
         <div class="--js-register-input-container">
-          <ion-input type="text" [(ngModel)]="newUserData.apellidos" required name="apellidos" placeholder="Apellidos" class="--js-register-input"></ion-input>
+          <ion-input type="text" [(ngModel)]="newUserData.lastnames" required name="lastnames" placeholder="Apellidos" class="--js-register-input"></ion-input>
         </div>
         <div class="--js-register-input-container">
           <ion-input type="email" [(ngModel)]="newUserData.email" required name="email" placeholder="Correo Electronico" class="--js-register-input"></ion-input>
         </div>
         <div class="--js-register-input-container">
-            <ion-input type="text" [(ngModel)]="newUserData.telefono" required name="telefono" placeholder="Numero Télefonico" class="--js-register-input"></ion-input>
+            <ion-input type="text" [(ngModel)]="newUserData.telephone" required name="telephone" placeholder="Numero Télefonico" class="--js-register-input"></ion-input>
           </div>
         <div class="--js-register-input-container">
             <ion-select placeholder="Departamento" 
-                        name="departamento" 
+                        name="city" 
                         required
-                        [(ngModel)]="newUserData.departamento"
+                        [(ngModel)]="newUserData.city"
                         [interfaceOptions]="customActionSheetOptions" 
                         interface="action-sheet" 
                         class="--js-register-select">
@@ -45,8 +45,8 @@
             <ion-select placeholder="Sexo" 
             required
             [interfaceOptions]="customActionSheetOptions" 
-            [(ngModel)]="newUserData.sexo"
-            name="sexo"
+            [(ngModel)]="newUserData.sex"
+            name="sex"
             interface="action-sheet" class="--js-register-select">
               <ion-select-option value="M">Masculino</ion-select-option>
               <ion-select-option value="F">Femenino</ion-select-option>
@@ -60,7 +60,7 @@
         </div>
         <div class="--js-register-checkbox-container">
           <ion-item>
-            <ion-checkbox style="margin-right:1em;" [(ngModel)]="newUserData.terminosycondiciones"   name="terminosycondiciones"></ion-checkbox>
+            <ion-checkbox style="margin-right:1em;" [(ngModel)]="newUserData.terms"   name="terms"></ion-checkbox>
             <ion-label>Acepto los Terminos y Condiciones</ion-label>
           </ion-item>
         </div>

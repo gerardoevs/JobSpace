@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'account', loadChildren: './account/account.module#AccountPageModule' },
   { path: 'categories', loadChildren: './categories/categories.module#CategoriesPageModule' },
   { path: 'near-me', loadChildren: './near-me/near-me.module#NearMePageModule' },
-  { path: 'cat-list:cat', loadChildren: './cat-list/cat-list.module#CatListPageModule' },  { path: 'reg-worker', loadChildren: './modal-pages/reg-worker/reg-worker.module#RegWorkerPageModule' }
+  { path: 'cat-list:cat', loadChildren: './cat-list/cat-list.module#CatListPageModule' },  { path: 'worker-register-done', loadChildren: './worker-register-done/worker-register-done.module#WorkerRegisterDonePageModule' }
+
 
 ];
 
